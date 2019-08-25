@@ -1,7 +1,5 @@
 //Submit operation class
 // @2019 ChronomeDev
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;

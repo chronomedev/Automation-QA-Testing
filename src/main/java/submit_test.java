@@ -15,18 +15,18 @@ public class submit_test extends input_test {
         super(driverGogel);
     }
 
-    public void clickForm(){
-
-    }
-
     public List<WebElement> ambilForm(){
         return driverGogel.findElements(By.tagName("form"));
     }
 
-    //ambi sendform
-    public void sendForm(List<WebElement> list_form, int index_form){
+    //sendform data
+    public void sendForm(List<WebElement> list_form, int index_form, boolean is_button){
         //System.out.println("WOI::::");
-        list_form.get(index_form).submit();
+        if(is_button){
+            list_form.get(index_form).findElement(By.tagName("button")).click();
+        } else{
+            list_form.get(index_form).submit();
+        }
     }
 
 

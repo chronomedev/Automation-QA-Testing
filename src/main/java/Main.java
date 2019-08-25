@@ -54,13 +54,12 @@ public class Main{
             test1.customFieldFill(listField, "email", "hansrenee@live.com");
             test1.customFieldFill(listField, "password", "hohohhoho");
             //System.out.println("tidak error1");
-            test2.sendForm(test2.ambilForm(), 0);
-            //System.out.println("tidak error2");
+            test2.sendForm(test2.ambilForm(), 0, false);
             //System.out.println(driverGogel.findElement(By.tagName("html")).getAttribute("innerHTML"));
             Thread.sleep(4000);
 
         } catch (Exception e){
-            System.out.println("ERROR WAZWUZWUZ");
+            System.out.println("ERROR WAZWUZWUZ:::::");
             e.printStackTrace();
         }
 
