@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit; //buat set time out
 
 public class Main{
 
@@ -30,7 +30,6 @@ public class Main{
                 " \\_____|_| |_|_|  \\___/|_| |_|\\___/|_| |_| |_|\\___|_____/ \\___| \\_/  ");
     }
 
-
     //Fungsi Main / Main Function
     public static void main(String[] args){
         ChronomeSplash();
@@ -42,23 +41,24 @@ public class Main{
             //Sesuaikan dengan browser mau yang dipake yang mana setiap engine browser itu berbeda
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
             driverGogel = new ChromeDriver();
-            driverGogel.get("http://www.mojohaus.org/exec-maven-plugin/");
+            driverGogel.get("https://www.idntimes.com/");
 
-            //driverGogel.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            List<WebElement> field_input = driverGogel.findElements(By.tagName("input"));
 
-            WebElement objek_elemen = driverGogel.findElement(By.tagName("html"));
-            List<WebElement> listElemen = driverGogel.findElementsByClassName("container-fluid");
-            List<WebElement> list_gambar = driverGogel.findElements(By.tagName("img"));
-
-            for(int z = 0;z<list_gambar.size();z++){
-                if(list_gambar.get(z).getAttribute("href") != null){
-                    System.out.println("Tidak null NOHHHH "+ list_gambar.get(z).getAttribute("href"));
-                } else {
-                    System.out.println("VALUE TEST NULLL");
+            for(int z = 0;z<field_input.size();z++){
+                if(field_input.get(z).getAttribute("data-testid") !="" && field_input.get(z).getAttribute("data-testid")!=null){
+                    if(field_input.get(z).getAttribute("data-testid").equals("royal_email")){
+                        field_input.get(z).sendKeys("");
+                    } else if(field_input.get(z).getAttribute("data-testid").equals("royal_pass")){
+                        field_input.get(z).sendKeys("");
+                    }
                 }
             }
 
-            System.out.println(objek_elemen.getAttribute("innerHTML"));
+            driverGogel.findElement(By.id("login_form")).submit();
+            System.out.println(driverGogel.findElement(By.tagName("html")).getAttribute("innerHTML"));
+            //driverGogel.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
             //driverGogel.close();
 
         } catch (Exception e){

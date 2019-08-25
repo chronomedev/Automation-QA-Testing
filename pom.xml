@@ -3,7 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+<!--    @ ChronomeDev 2019-->
+<!--    HATI-HATI KETIKA MENGUBAH DI BAGIAN INI. SESUAIKAN DENGAN JDK YANG DIPAKAI DI KOMPUTER-->
+<!--    JANGAN MERUBAH APAPUN DI BAGIAN INI APA BILA INGIN MELAKUKAN COMMIT KE REPOSITORY!!-->
+<!--    BILA DIRASA ADA YANG PERLU DI RUBAH HUBUNGI REPOSITORY ADMINISTRATOR !-->
     <groupId>73371515</groupId>
     <artifactId>1515</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -21,14 +24,14 @@
         </plugin>
         </plugins>
         <defaultGoal>install</defaultGoal>
-
     </build>
 
-
+<!--    properties buat targetin JDK-->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+<!--    Dependency untuk paket yang akan di atur maven-->
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
