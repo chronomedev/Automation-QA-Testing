@@ -41,7 +41,7 @@ public class Main{
             //Sesuaikan dengan browser mau yang dipake yang mana setiap engine browser itu berbeda
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
             driverGogel = new ChromeDriver();
-            driverGogel.get("https://www.idntimes.com/");
+            driverGogel.get("https://www.facebook.com/");
 
             List<WebElement> field_input = driverGogel.findElements(By.tagName("input"));
 
