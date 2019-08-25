@@ -3,15 +3,18 @@ web application using Selenium library build using maven
 Copyright ChronomeDev 2019 */
 
 //import com.gargoylesoftware.htmlunit.BrowserVersion;
+import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
+//import org.openqa.selenium.support.ui.ExpectedCondition;
+//import org.openqa.selenium.support.ui.ExpectedConditions;
+//import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.TimeUnit; //buat set time out
 
 public class Main{
@@ -41,30 +44,26 @@ public class Main{
             //Sesuaikan dengan browser mau yang dipake yang mana setiap engine browser itu berbeda
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
             driverGogel = new ChromeDriver();
-            driverGogel.get("https://www.facebook.com/");
+            driverGogel.get("https://community.idntimes.com/login");
+            //new WebDriverWait(driverGogel, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.nsg-button"))).click();
 
-            List<WebElement> field_input = driverGogel.findElements(By.tagName("input"));
+            input_test test1 = new input_test(driverGogel);
+            submit_test test2 = new submit_test(driverGogel);
 
-            for(int z = 0;z<field_input.size();z++){
-                if(field_input.get(z).getAttribute("data-testid") !="" && field_input.get(z).getAttribute("data-testid")!=null){
-                    if(field_input.get(z).getAttribute("data-testid").equals("royal_email")){
-                        field_input.get(z).sendKeys("");
-                    } else if(field_input.get(z).getAttribute("data-testid").equals("royal_pass")){
-                        field_input.get(z).sendKeys("");
-                    }
-                }
-            }
-
-            driverGogel.findElement(By.id("login_form")).submit();
-            System.out.println(driverGogel.findElement(By.tagName("html")).getAttribute("innerHTML"));
-            //driverGogel.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-            //driverGogel.close();
+            List<WebElement> listField = test1.ambilField();
+            test1.customFieldFill(listField, "email", "hansrenee@live.com");
+            test1.customFieldFill(listField, "password", "hohohhoho");
+            //System.out.println("tidak error1");
+            test2.sendForm(test2.ambilForm(), 0);
+            //System.out.println("tidak error2");
+            //System.out.println(driverGogel.findElement(By.tagName("html")).getAttribute("innerHTML"));
+            Thread.sleep(4000);
 
         } catch (Exception e){
             System.out.println("ERROR WAZWUZWUZ");
-            System.out.println(e);
+            e.printStackTrace();
         }
+
         driverGogel.quit();
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 
