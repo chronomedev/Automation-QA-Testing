@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.support.ui.ExpectedCondition;
 //import org.openqa.selenium.support.ui.ExpectedConditions;
-//import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,24 @@ public class Main{
                 "| |____| | | | | | (_) | | | | (_) | | | | | |  __/ |__| |  __/\\ V / \n" +
                 " \\_____|_| |_|_|  \\___/|_| |_|\\___/|_| |_| |_|\\___|_____/ \\___| \\_/  ");
     }
+    //controller function according test case
+    public static void loginTest(){
+        //input_test test1 = new input_test(driverGogel);
+        submit_test test2 = new submit_test(driverGogel);
 
+        List<WebElement> listField = test2.ambilField();
+        test2.customFieldFill(listField, "email", "destianputra@gmail.com");
+        test2.customFieldFill(listField, "password", "");//password disini
+        //System.out.println("tidak error1");
+        test2.sendForm(test2.ambilForm(), 0, false);
+        //System.out.println(driverGogel.findElement(By.tagName("html")).getAttribute("innerHTML"));
+    }
+
+    public static void signUpTest(){
+
+    }
+
+    
     //Fungsi Main / Main Function
     public static void main(String[] args){
         ChronomeSplash();
@@ -45,17 +62,7 @@ public class Main{
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
             driverGogel = new ChromeDriver();
             driverGogel.get("https://community.idntimes.com/login");
-            //new WebDriverWait(driverGogel, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.nsg-button"))).click();
-
-            input_test test1 = new input_test(driverGogel);
-            submit_test test2 = new submit_test(driverGogel);
-
-            List<WebElement> listField = test1.ambilField();
-            test1.customFieldFill(listField, "email", "hansrenee@live.com");
-            test1.customFieldFill(listField, "password", "hohohhoho");
-            //System.out.println("tidak error1");
-            test2.sendForm(test2.ambilForm(), 0, false);
-            //System.out.println(driverGogel.findElement(By.tagName("html")).getAttribute("innerHTML"));
+            loginTest();
             Thread.sleep(4000);
 
         } catch (Exception e){
