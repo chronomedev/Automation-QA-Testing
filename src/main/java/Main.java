@@ -21,6 +21,8 @@ public class Main{
 
     // Publik Instance
     public static ChromeDriver driverGogel;
+    public static String laman_web = "https://itemku.com/login";
+    //public static String laman_web = "https://community.idntimes.com/login";
 
 
     public static void ChronomeSplash(){
@@ -33,23 +35,29 @@ public class Main{
                 " \\_____|_| |_|_|  \\___/|_| |_|\\___/|_| |_| |_|\\___|_____/ \\___| \\_/  ");
     }
     //controller function according test case
-    public static void loginTest(){
-        //input_test test1 = new input_test(driverGogel);
+    public static void loginTest(String variabel_name, String variabel_name2, String param1, String param2){
         submit_test test2 = new submit_test(driverGogel);
 
         List<WebElement> listField = test2.ambilField();
-        test2.customFieldFill(listField, "email", "destianputra@gmail.com");
-        test2.customFieldFill(listField, "password", "");//password disini
+        test2.customFieldFill(listField, variabel_name, param1);
+        test2.customFieldFill(listField, variabel_name2, param2);//password disini
         //System.out.println("tidak error1");
-        test2.sendForm(test2.ambilForm(), 0, false);
-        //System.out.println(driverGogel.findElement(By.tagName("html")).getAttribute("innerHTML"));
+        test2.sendForm(test2.ambilForm(), 0, true);
+
     }
+
 
     public static void signUpTest(){
 
     }
 
-    
+
+/*
+    haaa belom tau lagi dah sesuai test case nanti
+    TODO?TODO?
+*/
+
+//////////////////////////////////////////////////////////////////////////
     //Fungsi Main / Main Function
     public static void main(String[] args){
         ChronomeSplash();
@@ -61,16 +69,16 @@ public class Main{
             //Sesuaikan dengan browser mau yang dipake yang mana setiap engine browser itu berbeda
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
             driverGogel = new ChromeDriver();
-            driverGogel.get("https://community.idntimes.com/login");
-            loginTest();
-            Thread.sleep(4000);
+            driverGogel.get(laman_web);
+            loginTest("email", "password_login", "hatachishanzer@gmail.com", "royale007");
+            Thread.sleep(5000);
 
         } catch (Exception e){
             System.out.println("ERROR WAZWUZWUZ:::::");
             e.printStackTrace();
         }
 
-        driverGogel.quit();
+        //driverGogel.quit();
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 
     }
