@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.support.ui.ExpectedCondition;
 //import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import java.util.ArrayList;
@@ -68,8 +69,12 @@ public class Main{
             System.out.println(System.getProperty("user.dir"));
             //Sesuaikan dengan browser mau yang dipake yang mana setiap engine browser itu berbeda
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
+            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir")+ "\\geckodriver.exe");
+            FirefoxDriver firefoz = new FirefoxDriver();
+            firefoz.get(laman_web);
             driverGogel = new ChromeDriver();
             driverGogel.get(laman_web);
+            Thread.sleep(5000);
             loginTest("email", "password_login", "hatachishanzer@gmail.com", "royale007");
             Thread.sleep(5000);
 
