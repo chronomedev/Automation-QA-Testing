@@ -21,8 +21,8 @@ public class Main{
 
     // Publik Instance
     public static ChromeDriver driverGogel;
-    public static String laman_web = "https://itemku.com/login";
-    //public static String laman_web = "https://community.idntimes.com/login";
+    //public static String laman_web = "https://itemku.com/login";
+    public static String laman_web = "https://community.idntimes.com/login";
 
 
     public static void ChronomeSplash(){
@@ -70,7 +70,7 @@ public class Main{
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
             driverGogel = new ChromeDriver();
             driverGogel.get(laman_web);
-            loginTest("email", "password_login", "hatachishanzer@gmail.com", "royale007");
+            loginTest("email", "password", "destianputra@gmail.com", "testingimplementasi");
             Thread.sleep(5000);
 
         } catch (Exception e){
