@@ -3,7 +3,7 @@ web application using Selenium library build using maven
 Copyright ChronomeDev 2019 */
 
 //import com.gargoylesoftware.htmlunit.BrowserVersion;
-import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +23,7 @@ public class Main{
     public static ChromeDriver driverGogel;
     //public static String laman_web = "https://itemku.com/login";
     public static String laman_web = "https://community.idntimes.com/login";
+    public static String laman_dashboard = "https://community.idntimes.com/dashboard";
 
 
     public static void ChronomeSplash(){
@@ -36,25 +37,90 @@ public class Main{
     }
     //controller function according test case
     public static void loginTest(String variabel_name, String variabel_name2, String param1, String param2){
+        driverGogel.get(laman_web);
         submit_test test2 = new submit_test(driverGogel);
 
         List<WebElement> listField = test2.ambilField();
+        System.out.println(listField);
         test2.customFieldFill(listField, variabel_name, param1);
-        test2.customFieldFill(listField, variabel_name2, param2);//password disini
+        test2.customFieldFill(listField, variabel_name2, param2); //password disini
         //System.out.println("tidak error1");
         test2.sendForm(test2.ambilForm(), 0, true);
 
     }
 
+    public static void logoutTest(){
+        //driverGogel.get(laman_dashboard);
+        List<WebElement> listElemen =  driverGogel.findElements(By.className("dropdown-submenu-user"));
 
-    public static void signUpTest(){
+        for(int z = 0;z<listElemen.size();z++){
+            System.out.println("print sini....");
+            System.out.println(listElemen.get(z).getAttribute("innerHTML"));
+        }
+        System.out.println(listElemen);
+
+
 
     }
 
 
+    public static void editorTest(){
+
+    }
+    public static void promoArticleTest(){
+
+    }
+
+    public static void pendingArticleTest(){
+
+    }
+
+    public static void publishedArticleTest(){
+
+    }
+
+    public static void rejectedArticleTest(){
+
+    }
+
+    public static void userSettingsTest(){
+
+    }
+
+    public static void newsTest(){
+
+    }
+
+    public static void regionalNewsTest(){
+
+    }
+
+    public static void hypeArticleTest(){
+
+    }
+
+    public static void quizTest(){
+
+    }
+
+    public static void communityArticleTest(){
+
+    }
+
+    public static void searchBoxTest(){
+
+    }
+
+    public static void useInfoTest(){
+
+    }
+
+
+
+
 /*
     haaa belom tau lagi dah sesuai test case nanti
-    TODO?TODO?
+
 */
 
 //////////////////////////////////////////////////////////////////////////
@@ -69,8 +135,8 @@ public class Main{
             //Sesuaikan dengan browser mau yang dipake yang mana setiap engine browser itu berbeda
             System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "\\chromedriver.exe");
             driverGogel = new ChromeDriver();
-            driverGogel.get(laman_web);
             loginTest("email", "password", "destianputra@gmail.com", "testingimplementasi");
+            logoutTest();
             Thread.sleep(5000);
 
         } catch (Exception e){
