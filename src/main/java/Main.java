@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import java.util.ArrayList;
@@ -26,9 +27,15 @@ public class Main {
 
     // Publik Instance
     public static ChromeDriver driverGogel;
-    //public static String laman_web = "https://itemku.com/login";
     public static String laman_web = "https://community.idntimes.com/login";
     public static String laman_dashboard = "https://community.idntimes.com/dashboard";
+
+
+    public static String username_test = "destianputra@gmail.com";
+    public static String password_test = "testingimplementasi";
+    public static String email_name_field = "email";
+    public static String password_name_field = "password";
+
 
 
     public static void ChronomeSplash() {
@@ -45,27 +52,23 @@ public class Main {
         JavascriptExecutor eksekusi = (JavascriptExecutor)driverGogel;
         eksekusi.executeScript("arguments[0].click();", elemenWeb);
     }
+
     //controller function according test case
-    public static void loginTest(String variabel_name, String variabel_name2, String param1, String param2) {
+    public static void loginTest() {
         driverGogel.get(laman_web);
         submit_test test2 = new submit_test(driverGogel);
 
         List<WebElement> listField = test2.ambilField();
         System.out.println(listField);
-        test2.customFieldFill(listField, variabel_name, param1);
-        test2.customFieldFill(listField, variabel_name2, param2); //password disini
+        test2.customFieldFill(listField, email_name_field, username_test);
+        test2.customFieldFill(listField, password_name_field, password_test); //password disini
         //System.out.println("tidak error1");
         test2.sendForm(test2.ambilForm(), 0, true);
 
     }
 
     public static void logoutTest() {
-        //driverGogel.get(laman_dashboard);
-        //List<WebElement> listElemen = driverGogel.findElements(By.cssSelector("ul[class='primary-submenu pull-right']"));
         List<WebElement> listElemen = driverGogel.findElements(By.cssSelector("a[class='header-icon icon-grey dropdown-toggle']"));
-
-        JavascriptExecutor jsjalan = (JavascriptExecutor)driverGogel;
-        //listElemen.get(1).click();
         List<WebElement> menu_user = listElemen.get(1).findElements(By.tagName("li"));
         fungsiJs(listElemen.get(0));
         List<WebElement> tagLink = driverGogel.findElements(By.tagName("a"));
@@ -78,12 +81,45 @@ public class Main {
     }
 
 
+    public static void editorTest(String testCase, String saveAs){
+        loginTest();
+        //jalan test social embed
+
+        List<WebElement> listElemen = driverGogel.findElements(By.tagName("a"));
+        for(int z = 0;z<listElemen.size();z++){
+            if(listElemen.get(z).getAttribute("href").equals("https://community.idntimes.com/dashboard/create-article")){
+                listElemen.get(z).click();
+                break;
+            }
+        }
+
+        if(testCase.equals("socialembed")){
+
+        } else { // jalanin test case edit normal
+
+//            WebDriverWait wait = new WebDriverWait(driverGogel, 10);
+//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tinymce")));
+           //new WebDriverWait(firefoxDriver, pageLoadTimeout).until(
+             //       webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+
+            WebElement judul = driverGogel.findElementByCssSelector("h1[class='app__single-line___2cW5W']");
+            WebElement field_execrpt = driverGogel.findElementByCssSelector("p[placeholder='Tulis excerpt di sini...']");
+            WebElement field_isian = driverGogel.findElement(By.id("tinymce"));
+            System.out.println("ISIIIIII:::::" + field_isian.getText());
 
 
 
-    public static void editorTest(){
+
+        }
+
+        if(saveAs.equals("draft")){ // buat jalanin test case draft article aja
+
+        } else { // buat jalanin test case save article
+
+        }
 
     }
+
     public static void promoArticleTest(){
 
     }
@@ -155,10 +191,11 @@ public class Main {
             ChromeOptions opsiArgumen = new ChromeOptions();
             opsiArgumen.addArguments("--start-maximized");
             driverGogel = new ChromeDriver(opsiArgumen);
-
-            loginTest("email", "password", "destianputra@gmail.com", "testingimplementasi");
+            ///////////////TEST CASE OPS//////////////////////////////////
+            //loginTest();
+            editorTest("","");
             Thread.sleep(4000);
-            logoutTest();
+            //logoutTest();
             //Thread.sleep(4000);
 
         } catch (Exception e){
