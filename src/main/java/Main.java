@@ -27,6 +27,7 @@ public class Main {
 
     // Publik Instance
     public static ChromeDriver driverGogel;
+    public static String laman_web_default = "https://www.idntimes.com/";
     public static String laman_web = "https://community.idntimes.com/login";
     public static String laman_dashboard = "https://community.idntimes.com/dashboard";
 
@@ -35,7 +36,6 @@ public class Main {
     public static String password_test = "testingimplementasi";
     public static String email_name_field = "email";
     public static String password_name_field = "password";
-
 
 
     public static void ChronomeSplash() {
@@ -48,9 +48,23 @@ public class Main {
                 " \\_____|_| |_|_|  \\___/|_| |_|\\___/|_| |_| |_|\\___|_____/ \\___| \\_/  ");
     }
 
-    public static void fungsiJs(WebElement elemenWeb){
-        JavascriptExecutor eksekusi = (JavascriptExecutor)driverGogel;
+    public static void fungsiJsKlik(WebElement elemenWeb) {
+        JavascriptExecutor eksekusi = (JavascriptExecutor) driverGogel;
         eksekusi.executeScript("arguments[0].click();", elemenWeb);
+    }
+
+    public static void fungsiJsEntryDataElemen(WebElement elemen, String data_masukan) {
+        JavascriptExecutor eksekusi = (JavascriptExecutor) driverGogel;
+        eksekusi.executeScript("arguments[0].innerHTML ='" + data_masukan + "';", elemen);
+    }
+
+    public static void fungsiJs(String source_code) {
+        JavascriptExecutor eksekusi = (JavascriptExecutor) driverGogel;
+        eksekusi.executeScript(source_code);
+    }
+
+    public static boolean tungguLoad(){
+        return ((JavascriptExecutor) driverGogel).executeScript("return document.readyState").equals("complete");
     }
 
     //controller function according test case
@@ -70,10 +84,10 @@ public class Main {
     public static void logoutTest() {
         List<WebElement> listElemen = driverGogel.findElements(By.cssSelector("a[class='header-icon icon-grey dropdown-toggle']"));
         List<WebElement> menu_user = listElemen.get(1).findElements(By.tagName("li"));
-        fungsiJs(listElemen.get(0));
+        fungsiJsKlik(listElemen.get(0));
         List<WebElement> tagLink = driverGogel.findElements(By.tagName("a"));
-        for(int z= 0 ;z<tagLink.size();z++){
-            if(tagLink.get(z).getAttribute("href").equals("https://community.idntimes.com/logout")){
+        for (int z = 0; z < tagLink.size(); z++) {
+            if (tagLink.get(z).getAttribute("href").equals("https://community.idntimes.com/logout")) {
                 tagLink.get(z).click();
                 break;
             }
@@ -81,44 +95,90 @@ public class Main {
     }
 
 
-    public static void editorTest(String testCase, String saveAs){
+    public static void editorTest(String testCase, String saveAs) {
         loginTest();
-        //jalan test social embed
+        //jalan tes normal
 
+        while (((JavascriptExecutor) driverGogel).executeScript("return document.readyState").equals("complete") != true) {
+            System.out.println("belom bos" + ((JavascriptExecutor) driverGogel).executeScript("return document.readyState").equals("complete"));
+        }
         List<WebElement> listElemen = driverGogel.findElements(By.tagName("a"));
-        for(int z = 0;z<listElemen.size();z++){
-            if(listElemen.get(z).getAttribute("href").equals("https://community.idntimes.com/dashboard/create-article")){
+        System.out.println(listElemen.size());
+        for (int z = 0; z < listElemen.size(); z++) {
+
+            if (listElemen.get(z).getAttribute("href").equals("https://community.idntimes.com/dashboard/create-article")) {
+                listElemen.get(z).getAttribute("href");
+                System.out.println("MASUK WOI NIH ADA HREFNYA COK");
                 listElemen.get(z).click();
                 break;
             }
         }
 
-        if(testCase.equals("socialembed")){
+        // jalanin test case edit normal
 
-        } else { // jalanin test case edit normal
-
-//            WebDriverWait wait = new WebDriverWait(driverGogel, 10);
-//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tinymce")));
-           //new WebDriverWait(firefoxDriver, pageLoadTimeout).until(
-             //       webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-
+            while (tungguLoad() !=  true) {
+                System.out.println("belom bos");
+            }
             WebElement judul = driverGogel.findElementByCssSelector("h1[class='app__single-line___2cW5W']");
+            fungsiJsEntryDataElemen(judul, "Artikel testing draft");
+
             WebElement field_execrpt = driverGogel.findElementByCssSelector("p[placeholder='Tulis excerpt di sini...']");
-            WebElement field_isian = driverGogel.findElement(By.id("tinymce"));
-            System.out.println("ISIIIIII:::::" + field_isian.getText());
+            fungsiJsEntryDataElemen(field_execrpt, "disini abstrak draft");
 
+            String jsScript = "z = document.getElementsByTagName(\"iframe\");\n" +
+                    "wew = null;\n" +
+                    "for(i = 0;i<z.length;i++){\n" +
+                    "    if(z[i].getAttribute(\"title\") == \"Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help\"){\n" +
+                    "        console.log(z[i]);\n" +
+                    "        wew = z[i];\n" +
+                    "        console.log(i);\n" +
+                    "        break;\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "\n" +
+                    "var iframe = document.getElementsByName(\"login_page\")[0];\n" +
+                    "var elemensub = wew.contentDocument || wew.contentWindow.document;\n" +
+                    "\n" +
+                    "subdok = elemensub.getElementsByTagName(\"p\");\n" +
+                    "subdok[0].value = \"Testing disini blablablabablbalbalbalbalbalba Agung Agung IDN TIMES\";";
+            fungsiJs(jsScript);
 
-
-
+        //basis test case mau embed apa standar
+        if (testCase.equals("embed")) {
+            jsScript = "tombol_embed = document.getElementsByClassName(\"app__btn-action___2JQU-\");\n" +
+                    "tombol_embed[7].click();\n" +
+                    "tombol_embed[8].click();\n" +
+                    "tombol_embed[9].click();\n" +
+                    "\n" +
+                    "field = document.getElementsByClassName(\"app__input-link___1daUZ\");\n" +
+                    "field[0].value = \"https://www.facebook.com/gakusahalaydifacbookgwcoy\";\n" +
+                    "field[1].value = \"https://www.instagram.com/\";\n" +
+                    "field[2].value = \"https://twitter.com\";";
+            fungsiJs(jsScript);
         }
+        List<WebElement> tombol = driverGogel.findElements(By.tagName("button"));
+        if(saveAs.equals("draft"))
 
-        if(saveAs.equals("draft")){ // buat jalanin test case draft article aja
+        { // buat jalanin test case draft article aja draft
 
-        } else { // buat jalanin test case save article
-
+            for (int z = 0; z < tombol.size(); z++) {
+                if (tombol.get(z).getAttribute("title").equals("Save as draft")) {
+                    tombol.get(z).click();
+                    break;
+                }
+            }
+        } else {
+        // buat jalanin test case save article editorial
+        for (int z = 0; z < tombol.size(); z++) {
+            if (tombol.get(z).getAttribute("title").equals("Submit to Editorial")) {
+                tombol.get(z).click();
+                break;
+            }
         }
-
     }
+
+}
+
 
     public static void promoArticleTest(){
 
@@ -145,6 +205,29 @@ public class Main {
     }
 
     public static void regionalNewsTest(){
+        driverGogel.get(laman_web_default);
+        while (tungguLoad() !=  true) {
+            System.out.println("belom bos");
+        }
+
+        List<WebElement> listelemen = driverGogel.findElementsByCssSelector("a[class='dropdown-button dropdown-icon-corner'");
+        listelemen.get(0).click();
+
+        List<WebElement> list_menu_berita = driverGogel.findElements(By.className("submenu-box"));
+        List<WebElement> list_berita = list_menu_berita.get(0).findElements(By.tagName("a"));
+        // contoh fuzzy random pilih jawa tengah beritanya
+        list_berita.get(3).click();
+        ////////masuk halaman berita regional
+        while (tungguLoad() !=  true) {
+            System.out.println("belom bos");
+        }
+        String jsScript = "sectionTrending = document.getElementById(\"trending\");\n" +
+                "subTreding = document.getElementsByClassName(\"slick-track\");\n" +
+                "link = subTreding[0].document.getElementsByTagName(\"a\");\n" +
+                "link[0].click();";
+        fungsiJs(jsScript);
+
+
 
     }
 
@@ -192,9 +275,11 @@ public class Main {
             opsiArgumen.addArguments("--start-maximized");
             driverGogel = new ChromeDriver(opsiArgumen);
             ///////////////TEST CASE OPS//////////////////////////////////
+            //disini sesuaikan ingin melakukan testing apa
             //loginTest();
-            editorTest("","");
-            Thread.sleep(4000);
+            //editorTest("embed","draft");
+            regionalNewsTest();
+            //Thread.sleep(4000);
             //logoutTest();
             //Thread.sleep(4000);
 
