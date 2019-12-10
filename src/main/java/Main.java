@@ -31,8 +31,9 @@ public class Main {
     public static String laman_dashboard = "https://community.idntimes.com/dashboard";
 
 
-    public static String username_test = "destianputra@gmail.com";
-    public static String password_test = "testingimplementasi";
+    public static String username_test = "destianputra@gmail.com"; // untuk faktor keamanan isi yang sesuai dalam source
+    // code yang diberikan oleh mahasiswa dalam pengumpulan elearning
+    public static String password_test = ""; // isi yang sesuai dalam source code yang diberikan oleh mahasiswa dalam pengumpulan elearning
     public static String email_name_field = "email";
     public static String password_name_field = "password";
 
