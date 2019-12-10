@@ -1,6 +1,8 @@
 /*Automation QA Engineering sample to test a
 web application using Selenium library build using maven
-Copyright ChronomeDev 2019 */
+Copyright ChronomeDev => (Hansrenee Willysandro) 2019
+Source code Test case IDN Times Kelas Testing Implementasi (Implementation IS Universitas Multimedia Nusantara)
+*/
 
 //import com.gargoylesoftware.htmlunit.BrowserVersion;
 //import org.apache.commons.logging.Log;
@@ -9,15 +11,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.support.ui.ExpectedCondition;
 //import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+//import org.openqa.selenium.interactions.Actions;
+//import org.openqa.selenium.support.ui.ExpectedConditions;
+//import org.openqa.selenium.support.ui.WebDriverWait;
 
 //import java.util.ArrayList;
-import javax.swing.*;
-import java.util.ArrayList;
+//import javax.swing.*;
+//import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 //import java.util.concurrent.TimeUnit; //buat set time out
 
 public class Main {
