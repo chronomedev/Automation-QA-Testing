@@ -323,7 +323,7 @@ public class Main {
             driverGogel = new ChromeDriver(opsiArgumen);
             ///////////////TEST CASE OPS//////////////////////////////////
             //disini sesuaikan ingin melakukan testing apa (un commend codenya yang ditandai oleh bintang)
-            //loginTest();
+            loginTest();
             //logoutTest();
             //editorTest("embed","draft");
             //regionalNewsTest();
@@ -332,7 +332,7 @@ public class Main {
             //communityArticleTest();
             //searchBoxTest("nfc");
             //promoArticleTest();
-            userSettingsTest();
+            //userSettingsTest();
 
             //Thread.sleep(4000);
 
