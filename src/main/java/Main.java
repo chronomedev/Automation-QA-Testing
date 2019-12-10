@@ -4,10 +4,7 @@ Copyright ChronomeDev 2019 */
 
 //import com.gargoylesoftware.htmlunit.BrowserVersion;
 //import org.apache.commons.logging.Log;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.support.ui.ExpectedCondition;
 //import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -188,19 +185,24 @@ public class Main {
 
 
     public static void promoArticleTest(){
+        loginTest();
+        tungguPage();
+        //Klik promo yang tertampil pertama
+        String jsScript = "z = document.querySelector(\"div[class='row mb-10']\");z.children[0].children[0].click()";
+        fungsiJs(jsScript);
 
     }
 
     public static void pendingArticleTest(){
-
+        // TODO: MANUAL TESTING DISINI BERDASARKAN LAPORAN
     }
 
     public static void publishedArticleTest(){
-
+        // TODO: MANUAL TESTING DISINI BERDASARKAN LAPORAN
     }
 
     public static void rejectedArticleTest(){
-
+        // TODO: MANUAL TESTING DISINI BERDASARKAN LAPORAN
     }
 
     public static void userSettingsTest(){
@@ -271,19 +273,26 @@ public class Main {
     }
 
     public static void communityArticleTest(){
+        loginTest();
+        tungguPage();
+        WebElement elemen = driverGogel.findElement(By.cssSelector("a[href='https://community.idntimes.com']"));
+        elemen.click();
 
     }
 
-    public static void searchBoxTest(){
-
+    public static void searchBoxTest(String keyword_pencarian){
+        driverGogel.get(laman_web_default);
+        tungguPage();
+        List<WebElement> list_elemen = driverGogel.findElements(By.cssSelector("a[href='#search-modal']"));
+        list_elemen.get(0).click();
+        String jsScript = "z = document.getElementById(\"search-input\");" +
+                "z.value ='"+keyword_pencarian +"';";
+        fungsiJs(jsScript);
+        tungguPage();
+        WebElement formSearch = driverGogel.findElement(By.id("search-input"));
+        formSearch.sendKeys(Keys.RETURN);
     }
-
-    public static void useInfoTest(){
-
-    }
-
-
-
+    
 
 /*
     haaa belom tau lagi dah sesuai test case nanti
@@ -306,13 +315,16 @@ public class Main {
             opsiArgumen.addArguments("--start-maximized");
             driverGogel = new ChromeDriver(opsiArgumen);
             ///////////////TEST CASE OPS//////////////////////////////////
-            //disini sesuaikan ingin melakukan testing apa (un commend codenya)
+            //disini sesuaikan ingin melakukan testing apa (un commend codenya yang ditandai oleh bintang)
             //loginTest();
             //logoutTest();
             //editorTest("embed","draft");
             //regionalNewsTest();
             //hypeArticleTest();
             //newsTest();
+            //communityArticleTest();
+            searchBoxTest("nfc");
+            //promoArticleTest();
 
             //Thread.sleep(4000);
 
