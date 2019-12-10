@@ -48,6 +48,7 @@ public class Main {
                 " \\_____|_| |_|_|  \\___/|_| |_|\\___/|_| |_| |_|\\___|_____/ \\___| \\_/  ");
     }
 
+    ////Fungsi yang sering dipakai /////////
     public static void fungsiJsKlik(WebElement elemenWeb) {
         JavascriptExecutor eksekusi = (JavascriptExecutor) driverGogel;
         eksekusi.executeScript("arguments[0].click();", elemenWeb);
@@ -68,6 +69,13 @@ public class Main {
         return ((JavascriptExecutor) driverGogel).executeScript("return document.readyState").equals("complete");
     }
 
+    public static void tungguPage(){
+        while (tungguLoad() !=  true) {
+            System.out.println("belom bos");
+        }
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
     //controller function according test case
     public static void loginTest() {
         driverGogel.get(laman_web);
@@ -117,9 +125,7 @@ public class Main {
 
         // jalanin test case edit normal
 
-            while (tungguLoad() !=  true) {
-                System.out.println("belom bos");
-            }
+            tungguPage();
             WebElement judul = driverGogel.findElementByCssSelector("h1[class='app__single-line___2cW5W']");
             fungsiJsEntryDataElemen(judul, "Artikel testing draft");
 
@@ -207,9 +213,7 @@ public class Main {
 
     public static void regionalNewsTest(){
         driverGogel.get(laman_web_default);
-        while (tungguLoad() !=  true) {
-            System.out.println("belom bos");
-        }
+        tungguPage();
 
         List<WebElement> listelemen = driverGogel.findElementsByCssSelector("a[class='dropdown-button dropdown-icon-corner'");
         listelemen.get(0).click();
@@ -220,9 +224,7 @@ public class Main {
         // contoh fuzzy random pilih jawa tengah beritanya
         list_berita.get(3).click();
         ////////masuk halaman berita regional
-        while (tungguLoad() !=  true) {
-            System.out.println("belom bos");
-        }
+        tungguPage();
         String jsScript = "sectionTrending = document.getElementById(\"trending\");\n" +
                 "subTreding = document.getElementsByClassName(\"slick-track\");\n" +
                 "link = subTreding[2].children[5];\n" +
@@ -233,9 +235,7 @@ public class Main {
 
     public static void hypeArticleTest(){
         driverGogel.get(laman_web_default);
-        while (tungguLoad() !=  true) {
-            System.out.println("belom bos");
-        }
+        tungguPage();
 
         List<WebElement> elemenWeb = driverGogel.findElements(By.tagName("a"));
         for(int z = 0;z<elemenWeb.size();z++){
@@ -246,14 +246,11 @@ public class Main {
         }
 
         ////// menuju ke halaman hype//////////
-
-
-
-
-    }
-
-    public static void quizTest(){
-
+        // random pilih berita yang ada di carousel apakah sesuai apa tidak
+        tungguPage();
+        String jsScript = "sectionTrending = document.querySelector(\"div[class='box-trending']\");\n" +
+                "sectionTrending.children[0].click();\n";
+        fungsiJs(jsScript);
     }
 
     public static void communityArticleTest(){
@@ -292,12 +289,12 @@ public class Main {
             opsiArgumen.addArguments("--start-maximized");
             driverGogel = new ChromeDriver(opsiArgumen);
             ///////////////TEST CASE OPS//////////////////////////////////
-            //disini sesuaikan ingin melakukan testing apa
+            //disini sesuaikan ingin melakukan testing apa (un commend codenya)
             //loginTest();
-            //editorTest("embed","draft");
-            regionalNewsTest();
-            //Thread.sleep(4000);
             //logoutTest();
+            //editorTest("embed","draft");
+            //regionalNewsTest();
+            hypeArticleTest();
             //Thread.sleep(4000);
 
         } catch (Exception e){
