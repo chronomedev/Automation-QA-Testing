@@ -299,12 +299,6 @@ public class Main {
         WebElement formSearch = driverGogel.findElement(By.id("search-input"));
         formSearch.sendKeys(Keys.RETURN);
     }
-    
-
-/*
-    haaa belom tau lagi dah sesuai test case nanti
-
-*/
 
 //////////////////////////////////////////////////////////////////////////
     //Fungsi Main / Main Function
@@ -337,7 +331,7 @@ public class Main {
             //Thread.sleep(4000);
 
         } catch (Exception e){
-            System.out.println("ERROR WAZWUZWUZ:::::");
+            System.out.println("ERROR PESAN BAWAH:::::");
             e.printStackTrace();
         }
 
