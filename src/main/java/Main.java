@@ -63,6 +63,7 @@ public class Main {
         eksekusi.executeScript(source_code);
     }
 
+    //tunggu page load
     public static boolean tungguLoad(){
         return ((JavascriptExecutor) driverGogel).executeScript("return document.readyState").equals("complete");
     }
@@ -213,6 +214,7 @@ public class Main {
         List<WebElement> listelemen = driverGogel.findElementsByCssSelector("a[class='dropdown-button dropdown-icon-corner'");
         listelemen.get(0).click();
 
+        //////////////Masuk halaman web regional/////////////////
         List<WebElement> list_menu_berita = driverGogel.findElements(By.className("submenu-box"));
         List<WebElement> list_berita = list_menu_berita.get(0).findElements(By.tagName("a"));
         // contoh fuzzy random pilih jawa tengah beritanya
@@ -223,15 +225,30 @@ public class Main {
         }
         String jsScript = "sectionTrending = document.getElementById(\"trending\");\n" +
                 "subTreding = document.getElementsByClassName(\"slick-track\");\n" +
-                "link = subTreding[0].document.getElementsByTagName(\"a\");\n" +
-                "link[0].click();";
+                "link = subTreding[2].children[5];\n" +
+                "link.children[0].children[0].children[0].click()";
         fungsiJs(jsScript);
-
-
 
     }
 
     public static void hypeArticleTest(){
+        driverGogel.get(laman_web_default);
+        while (tungguLoad() !=  true) {
+            System.out.println("belom bos");
+        }
+
+        List<WebElement> elemenWeb = driverGogel.findElements(By.tagName("a"));
+        for(int z = 0;z<elemenWeb.size();z++){
+            if(elemenWeb.get(z).getAttribute("href").equals("https://www.idntimes.com/hype")){
+                elemenWeb.get(z).click();
+                break;
+            }
+        }
+
+        ////// menuju ke halaman hype//////////
+
+
+
 
     }
 
