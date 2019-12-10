@@ -206,7 +206,14 @@ public class Main {
     }
 
     public static void userSettingsTest(){
-
+        loginTest();
+        tungguPage();
+        List<WebElement> listElemen = driverGogel.findElements(By.cssSelector("a[class='header-icon icon-grey dropdown-toggle']"));
+        List<WebElement> menu_user = listElemen.get(1).findElements(By.tagName("li"));
+        fungsiJsKlik(listElemen.get(0));
+        tungguPage();
+        WebElement link = driverGogel.findElement(By.cssSelector("a[href='https://community.idntimes.com/profile/edit-account']"));
+        link.click();
     }
 
     public static void newsTest(){
@@ -323,8 +330,9 @@ public class Main {
             //hypeArticleTest();
             //newsTest();
             //communityArticleTest();
-            searchBoxTest("nfc");
+            //searchBoxTest("nfc");
             //promoArticleTest();
+            userSettingsTest();
 
             //Thread.sleep(4000);
 
