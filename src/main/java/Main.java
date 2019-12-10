@@ -208,6 +208,23 @@ public class Main {
     }
 
     public static void newsTest(){
+        driverGogel.get(laman_web_default);
+        tungguPage();
+
+        List<WebElement> elemenWeb = driverGogel.findElements(By.tagName("a"));
+        for(int z = 0;z<elemenWeb.size();z++){
+            if(elemenWeb.get(z).getAttribute("href").equals("https://www.idntimes.com/news")){
+                elemenWeb.get(z).click();
+                break;
+            }
+        }
+
+        //////////Haalaman news klik random berita
+
+        tungguPage();
+        String jsScript = "sectionTrending = document.querySelector(\"div[class='box-trending']\");\n" +
+                "sectionTrending.children[0].click();\n";
+        fungsiJs(jsScript);
 
     }
 
@@ -294,7 +311,9 @@ public class Main {
             //logoutTest();
             //editorTest("embed","draft");
             //regionalNewsTest();
-            hypeArticleTest();
+            //hypeArticleTest();
+            //newsTest();
+
             //Thread.sleep(4000);
 
         } catch (Exception e){
